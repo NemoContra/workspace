@@ -28,14 +28,16 @@ app.get('/api/auth', (req: Request, res: Response) => {
 });
 
 app.get('/api/flight', (req: Request, res: Response) => {
-  if (req.header('authorization')) {
-    const token = req.header('authorization').split(' ')[1];
-    if (token === jwt) {
-      const flights = JSON.parse(fs.readFileSync(path.join(__dirname, 'flights.json')).toString('utf8'));
-      res.json(flights);
+  setTimeout(() => {
+    if (req.header('authorization')) {
+      const token = req.header('authorization').split(' ')[1];
+      if (token === jwt) {
+        const flights = JSON.parse(fs.readFileSync(path.join(__dirname, 'flights.json')).toString('utf8'));
+        res.json(flights);
+      }
     }
-  }
-  res.status(401).end();
+    res.status(401).end();
+  }, 4000);
 });
 
 const port = 3000;

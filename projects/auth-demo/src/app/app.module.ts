@@ -4,6 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
+import { TokenService } from './services/token.service';
+
+export function jwtOptionsFactory(tokenService: TokenService) {
+  return {
+    tokenGetter: () => tokenService.getToken(),
+    throwNoTokenError: false
+  };
+}
 
 @NgModule({
   declarations: [
@@ -12,7 +21,14 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+        deps: [TokenService]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

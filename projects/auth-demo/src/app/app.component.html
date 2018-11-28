@@ -1,6 +1,5 @@
-<p>#Show only if user is not logged in</p>
-<div>
-  <form [formGroup]="loginFormGroup">
+<div *ngIf="!isLoggedIn; else loggedIn">
+  <form [formGroup]="loginFormGroup" (submit)="onLogin()">
     <input type="text" formControlName="username" placeholder="Username">
     <br>
     <input type="password" formControlName="password" placeholder="Password">
@@ -9,12 +8,14 @@
   </form>
 </div>
 
-<p>#Show only if user is logged in</p>
-<button>Logout</button>
+<ng-template #loggedIn>
+  <p>#Show only if user is logged in</p>
+  <button (click)="logout()">Logout</button>
+</ng-template>
 <hr>
-<div>
-  <p>User logged in: #show username</p>
+<div *ngIf="tokenPayload$ | async as tokenPayload">
+  <p>User logged in: {{tokenPayload?.username}}</p>
 </div>
 
-<button>Get flights</button>
-<pre>#Show flights here</pre>
+<button (click)="onLoadFlights()">Get flights</button>
+<pre *ngIf="flights$ | async as flights">{{flights | json}}</pre>

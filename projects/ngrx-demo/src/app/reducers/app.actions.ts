@@ -7,18 +7,19 @@ export enum AppActionTypes {
   LoadFlightsError = '[App] LoadFlightsError',
 }
 
-export class LoadFlights implements Action {
+export class LoadFlightsAction implements Action {
   readonly type = AppActionTypes.LoadFlights;
+  constructor(public payload: boolean) { }
 }
 
-export class LoadFlightsSuccess implements Action {
+export class LoadFlightsSuccessAction implements Action {
   readonly type = AppActionTypes.LoadFlightsSuccess;
   constructor(public payload: Flight[]) {}
 }
 
-export class LoadFlightsError implements Action {
+export class LoadFlightsErrorAction implements Action {
   readonly type = AppActionTypes.LoadFlightsError;
-  constructor(public error: string) {}
+  constructor(public payload: string) {}
 }
 
-export type AppActions = LoadFlights & LoadFlightsSuccess & LoadFlightsError;
+export type AppActions = LoadFlightsAction | LoadFlightsSuccessAction | LoadFlightsErrorAction;

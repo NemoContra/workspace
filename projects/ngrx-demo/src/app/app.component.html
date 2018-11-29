@@ -1,1 +1,4 @@
+<input type="checkbox" #urgentCheckbox>Urgent?
+<br>
+<button type="button" (click)="loadFlights(urgentCheckbox?.checked)">Load flights</button>
 <pre>{{flights$ | async | json}}</pre>

@@ -1,3 +1,9 @@
-<p>
-  flight-search works!
-</p>
+<form [formGroup]="searchGroup">
+  <input type="text" formControlName="from" placeholder="from">
+  <br>
+  <input type="text" formControlName="to" placeholder="to">
+</form>
+
+<p *ngIf="selectedFlight">Selected flight id: {{selectedFlight.id}}</p>
+
+<app-flight-card [flights]="flights$ | async" [(selectedFlight)]="selectedFlight"></app-flight-card>

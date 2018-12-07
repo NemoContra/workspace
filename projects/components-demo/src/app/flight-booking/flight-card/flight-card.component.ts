@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, EventEmitter, Input, Output } from '@angular/core';
+import { Flight } from '../../models/flight';
 
 @Component({
   selector: 'app-flight-card',
   templateUrl: './flight-card.component.html',
-  styleUrls: ['./flight-card.component.css']
+  styleUrls: ['./flight-card.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlightCardComponent implements OnInit {
+export class FlightCardComponent implements DoCheck {
+  @Input() flights: Flight[];
+  @Input() selectedFlight: Flight;
+  @Output() selectedFlightChange = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit() {
+  public onSelectFlight(flight: Flight): void {
+    this.selectedFlight = flight;
+    this.selectedFlightChange.emit(flight);
   }
 
+  ngDoCheck(): void {
+    console.log('change detection for flight-card-component');
+  }
 }

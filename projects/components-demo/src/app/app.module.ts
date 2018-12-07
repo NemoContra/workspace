@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlightBookingComponent } from './flight-booking/flight-booking.component';
 import { FlightCardComponent } from './flight-booking/flight-card/flight-card.component';
 import { FlightSearchComponent } from './flight-booking/flight-search/flight-search.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FlightSearchComponent } from './flight-booking/flight-search/flight-sea
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

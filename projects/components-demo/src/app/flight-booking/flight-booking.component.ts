@@ -1,20 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { FlightService } from '../services/flight.service';
-import { Observable } from 'rxjs';
-import { Flight } from '../models/flight';
+import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
 
 @Component({
   selector: 'app-flight-booking',
   templateUrl: './flight-booking.component.html',
-  styleUrls: ['./flight-booking.component.css']
+  styleUrls: ['./flight-booking.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlightBookingComponent implements OnInit {
-  public flights$: Observable<Flight[]>;
-
-
-  constructor(private flightService: FlightService) { }
-
-  ngOnInit() {
-    this.flights$ = this.flightService.getFlights();
+export class FlightBookingComponent implements DoCheck {
+  ngDoCheck(): void {
+    console.log('change detection for flight-booking-component');
   }
 }

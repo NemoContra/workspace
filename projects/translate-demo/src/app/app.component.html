@@ -1,4 +1,4 @@
-<p>{{'app.text.selectYourLanguage'}}</p>
+<p>{{'app.text.selectYourLanguage' | translate}}</p>
 <form [formGroup]="languageFormGroup">
   <select formControlName="language">
     <option value="en">{{'app.languages.en' | translate}}</option>
@@ -10,5 +10,4 @@
 <hr>
 
 <h1>{{ 'app.headline1' | translate:{name: nameInput?.value} }}</h1>
-<!--<h1 translate [translateParams]="{name: nameInput?.value}">app.headline1</h1>-->
 <button type="button" (click)="greet()">{{'app.buttons.greet' | translate}}</button>

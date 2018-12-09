@@ -4,6 +4,13 @@
   ],
   "rules": {
     "arrow-return-shorthand": true,
+    "ban": [
+      true,
+      "fdescribe",
+      "xdescribe",
+      "fit",
+      "xit"
+    ],
     "callable-types": true,
     "class-name": true,
     "comment-format": [

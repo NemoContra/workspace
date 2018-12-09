@@ -7,6 +7,11 @@ import { FlightBookingComponent } from './flight-booking/flight-booking.componen
 import { FlightCardComponent } from './flight-booking/flight-card/flight-card.component';
 import { FlightSearchComponent } from './flight-booking/flight-search/flight-search.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Config } from './models/config';
+
+export const APP_CONFIG: Config = {
+  searchDebounceTime: 300
+};
 
 @NgModule({
   declarations: [
@@ -20,7 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {provide: Config, useValue: APP_CONFIG}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,14 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FlightService } from '../../services/flight.service';
-import { Observable } from 'rxjs';
+import { MonoTypeOperatorFunction, Observable } from 'rxjs';
 import { Flight } from '../../models/flight';
 import { concatMap, debounceTime, distinctUntilChanged, filter, startWith, tap } from 'rxjs/operators';
+import { Config } from '../../models/config';
+
+function debounceOrNot<T>(time: number = 0): MonoTypeOperatorFunction<T> {
+  return time > 0 ? debounceTime(time) : tap();
+}
 
 @Component({
   selector: 'app-flight-search',
@@ -19,12 +24,12 @@ export class FlightSearchComponent implements OnInit, DoCheck {
   public flights$: Observable<Flight[]>;
   public selectedFlight: Flight | null;
 
-  constructor(private flightService: FlightService) { }
+  constructor(private flightService: FlightService, @Optional() private config: Config | undefined) { }
 
   ngOnInit(): void {
     this.flights$ = this.searchGroup.valueChanges.pipe(
       filter(() => this.searchGroup.valid),
-      debounceTime(300),
+      debounceOrNot(this.config && this.config.searchDebounceTime),
       distinctUntilChanged(),
       tap(() => this.selectedFlight = null),
       concatMap(({from, to}) => this.flightService.findFlights(from, to)),

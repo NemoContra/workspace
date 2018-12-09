@@ -53,7 +53,7 @@ describe('FlightCardComponent', () => {
     expect(fixture.nativeElement.querySelector('div')).toBeNull();
   });
 
-  it('should render a list with two flights and first none selected', () => {
+  it('should render a list with two flights and none selected', () => {
     component.flights = testFlights;
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelectorAll('div').length).toBe(2);
@@ -65,11 +65,12 @@ describe('FlightCardComponent', () => {
     component.flights = testFlights;
     component.selectedFlight = testFlights[0];
     fixture.detectChanges();
+
     expect(fixture.nativeElement.querySelectorAll('div').length).toBe(2);
     expect(fixture.nativeElement.querySelectorAll('div')[0].classList).toContain('selected');
   });
 
-  it('should render a list with two flights and select the second one', () => {
+  it('should render a list with two flights and first preselected, then select the second one', () => {
     component.flights = testFlights;
     component.selectedFlight = testFlights[0];
     fixture.detectChanges();
@@ -78,6 +79,7 @@ describe('FlightCardComponent', () => {
     selectButton.click();
 
     fixture.detectChanges();
+    expect(fixture.nativeElement.querySelectorAll('div')[0].classList).not.toContain('selected');
     expect(fixture.nativeElement.querySelectorAll('div')[1].classList).toContain('selected');
   });
 });

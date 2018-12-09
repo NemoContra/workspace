@@ -3,7 +3,7 @@ import { AppPage } from './app.po';
 describe('FlightSearch App', () => {
   let page: AppPage;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     page = new AppPage();
   });
 

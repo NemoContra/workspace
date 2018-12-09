@@ -11,7 +11,8 @@
     "build:element": "ng build --project greeter-element --prod --extraWebpackConfig webpack.extra.js --output-hashing none --single-bundle true && cp -R dist/greeter-element/main.js projects/greeter-element/test",
     "serve:element": "cd projects/greeter-element/test && ws",
     "tdd": "ng test --browsers Chrome --code-coverage",
-    "test:ci": "ng test --browsers Chrome_without_security --code-coverage --watch=false"
+    "test:ci": "ng test --project components-demo --browsers Chrome_without_security --code-coverage --watch=false",
+    "ci": "npm run lint && npm run test:ci && npm run e2e"
   },
   "private": true,
   "dependencies": {

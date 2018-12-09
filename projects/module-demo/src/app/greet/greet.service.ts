@@ -1,19 +1,12 @@
-import { Injectable, Optional } from '@angular/core';
-import { GreetConfig } from './greet.config';
+import { Injectable } from '@angular/core';
 
 @Injectable()
 export class GreetService {
-  constructor(@Optional() private greetConfig: GreetConfig) {
+  constructor() {
     console.log('Service instance created');
   }
 
   public greet(name: string): string {
-    const greet = `Hello ${name}`;
-
-    if (this.greetConfig && this.greetConfig.showDate) {
-      return `[${new Date().toISOString()}] ${greet}`;
-    } else {
-      return greet;
-    }
+    return name;
   }
 }

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { FlightSearchComponent } from './flight-search.component';
 import { FlightService } from '../../services/flight.service';
@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Flight } from '../../models/flight';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { skip, take } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 const testFlights: Flight[] = [{
   id: 1,
@@ -32,6 +32,11 @@ class FlightCardMockComponent {
   @Output() selectedFlightChange = new EventEmitter();
 }
 
+const flightServiceMock = {
+  getFlights: jasmine.createSpy('getFlights').and.returnValue(of(testFlights)),
+  findFlights: jasmine.createSpy('findFlights').and.returnValue(of(testFlights))
+};
+
 describe('FlightSearchComponent', () => {
   let component: FlightSearchComponent;
   let fixture: ComponentFixture<FlightSearchComponent>;
@@ -47,7 +52,7 @@ describe('FlightSearchComponent', () => {
         FlightCardMockComponent
       ],
       providers: [
-        FlightService
+        {provide: FlightService, useValue: flightServiceMock}
       ]
     }).compileComponents();
 
@@ -78,8 +83,8 @@ describe('FlightSearchComponent', () => {
 
     fixture.detectChanges();
 
-    component.flights$.pipe(take(1)).subscribe(flights => expect(flights).toEqual([]));
-    component.flights$.pipe(skip(1)).subscribe(flights => expect(flights).toEqual([testFlights[0]]));
+    const flightService: FlightService = TestBed.get(FlightService);
+    expect(flightService.findFlights).toHaveBeenCalledWith('Graz', 'Hamburg');
   });
 
   it('should search a flight from Wien to Graz and find no elements', () => {
@@ -89,14 +94,14 @@ describe('FlightSearchComponent', () => {
     component.ngOnInit();
 
     fromInput.value = 'Wien';
-    fromInput.dispatchEvent(new Event('change'));
+    fromInput.dispatchEvent(new Event('input'));
 
     toInput.value = 'Graz';
-    toInput.dispatchEvent(new Event('change'));
+    toInput.dispatchEvent(new Event('input'));
 
     fixture.detectChanges();
 
-    component.flights$.pipe(take(1)).subscribe(flights => expect(flights).toEqual([]));
-    component.flights$.pipe(skip(1)).subscribe(flights => expect(flights).toEqual([]));
+    const flightService: FlightService = TestBed.get(FlightService);
+    expect(flightService.findFlights).toHaveBeenCalledWith('Graz', 'Hamburg');
   });
 });

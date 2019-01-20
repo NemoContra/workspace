@@ -8,6 +8,6 @@ import { ChangeDetectionStrategy, Component, DoCheck } from '@angular/core';
 })
 export class FlightBookingComponent implements DoCheck {
   ngDoCheck(): void {
-    console.log('change detection for flight-booking-component');
+    // console.log('change detection for flight-booking-component');
   }
 }

@@ -18,6 +18,6 @@ export class FlightCardComponent implements DoCheck {
   }
 
   ngDoCheck(): void {
-    console.log('change detection for flight-card-component');
+    // console.log('change detection for flight-card-component');
   }
 }

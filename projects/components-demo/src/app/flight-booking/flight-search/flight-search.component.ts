@@ -38,6 +38,6 @@ export class FlightSearchComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    console.log('change detection for flight-search-component');
+    // console.log('change detection for flight-search-component');
   }
 }

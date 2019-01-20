@@ -5,13 +5,14 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:element": "ng build --project greeter-element --prod --extraWebpackConfig webpack.extra.js --output-hashing none --single-bundle true && cp -R dist/greeter-element/main.js projects/greeter-element/test",
-    "serve:element": "cd projects/greeter-element/test && ws",
     "tdd": "ng test --browsers Chrome --code-coverage",
-    "test:ci": "ng test --browsers Chrome_without_security --code-coverage --watch=false"
+    "test:ci": "ng test --browsers Chrome_without_security --code-coverage --watch=false",
+    "serve:prod": "cd dist/components-demo/ && ws",
+    "ci": "npm-run-all --parallel lint test:ci e2e build:prod --sequential serve:prod"
   },
   "private": true,
   "dependencies": {
@@ -50,6 +51,7 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "local-http-server": "^1.0.0",
+    "npm-run-all": "^4.1.5",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",

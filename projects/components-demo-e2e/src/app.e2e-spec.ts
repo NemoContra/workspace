@@ -1,13 +1,17 @@
 import { AppPage } from './app.po';
+import { browser } from 'protractor';
 
 describe('FlightSearch App', () => {
   let page: AppPage;
+  const delay = 0;
 
   beforeEach(async () => {
     page = new AppPage();
   });
 
   describe('flight search from Hamburg to Graz', () => {
+    beforeEach(() => browser.sleep(delay));
+
     it('should navigate to the page', async () => {
       await page.navigateTo();
     });
@@ -25,6 +29,8 @@ describe('FlightSearch App', () => {
   });
 
   describe('flight search from Wien to Berlin', () => {
+    beforeEach(() => browser.sleep(delay));
+
     it('should navigate to the page', async () => {
       await page.navigateTo();
     });

@@ -32,16 +32,16 @@ class FlightCardMockComponent {
   @Output() selectedFlightChange = new EventEmitter();
 }
 
-const flightServiceMock = {
-  getFlights: jasmine.createSpy('getFlights').and.returnValue(of(testFlights)),
-  findFlights: jasmine.createSpy('findFlights').and.returnValue(of(testFlights))
-};
-
 describe('FlightSearchComponent', () => {
   let component: FlightSearchComponent;
   let fixture: ComponentFixture<FlightSearchComponent>;
 
   beforeEach(async () => {
+    const flightServiceMock = {
+      getFlights: jasmine.createSpy('getFlights').and.returnValue(of(testFlights)),
+      findFlights: jasmine.createSpy('findFlights').and.returnValue(of(testFlights))
+    };
+
     await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
@@ -102,6 +102,6 @@ describe('FlightSearchComponent', () => {
     fixture.detectChanges();
 
     const flightService: FlightService = TestBed.get(FlightService);
-    expect(flightService.findFlights).toHaveBeenCalledWith('Graz', 'Hamburg');
+    expect(flightService.findFlights).toHaveBeenCalledWith('Wien', 'Graz');
   });
 });

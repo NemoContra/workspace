@@ -21,6 +21,7 @@ const testFlights: Flight[] = [{
 describe('FlightService', () => {
   let flightService: FlightService;
   let httpTestingControler: HttpTestingController;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -30,6 +31,7 @@ describe('FlightService', () => {
         FlightService
       ]
     });
+
     httpTestingControler = TestBed.get(HttpTestingController);
     flightService = TestBed.get(FlightService);
   });

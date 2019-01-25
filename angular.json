@@ -3,40 +3,36 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "greeter-element": {
-      "root": "projects/greeter-element/",
-      "sourceRoot": "projects/greeter-element/src",
+    "forms-demo": {
+      "root": "projects/forms-demo/",
+      "sourceRoot": "projects/forms-demo/src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "ngx-build-plus:build",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/greeter-element",
-            "index": "projects/greeter-element/src/index.html",
-            "main": "projects/greeter-element/src/main.ts",
-            "polyfills": "projects/greeter-element/src/polyfills.ts",
-            "tsConfig": "projects/greeter-element/tsconfig.app.json",
+            "outputPath": "dist/forms-demo",
+            "index": "projects/forms-demo/src/index.html",
+            "main": "projects/forms-demo/src/main.ts",
+            "polyfills": "projects/forms-demo/src/polyfills.ts",
+            "tsConfig": "projects/forms-demo/tsconfig.app.json",
             "assets": [
-              "projects/greeter-element/src/favicon.ico",
-              "projects/greeter-element/src/assets"
+              "projects/forms-demo/src/favicon.ico",
+              "projects/forms-demo/src/assets"
             ],
             "styles": [
-              "projects/greeter-element/src/styles.css"
+              "projects/forms-demo/src/styles.css"
             ],
-            "scripts": [
-              {
-                "input": "node_modules/document-register-element/build/document-register-element.js"
-              }
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/greeter-element/src/environments/environment.ts",
-                  "with": "projects/greeter-element/src/environments/environment.prod.ts"
+                  "replace": "projects/forms-demo/src/environments/environment.ts",
+                  "with": "projects/forms-demo/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -59,36 +55,36 @@
           }
         },
         "serve": {
-          "builder": "ngx-build-plus:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "greeter-element:build"
+            "browserTarget": "forms-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "greeter-element:build:production"
+              "browserTarget": "forms-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "greeter-element:build"
+            "browserTarget": "forms-demo:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/greeter-element/src/test.ts",
-            "polyfills": "projects/greeter-element/src/polyfills.ts",
-            "tsConfig": "projects/greeter-element/tsconfig.spec.json",
-            "karmaConfig": "projects/greeter-element/karma.conf.js",
+            "main": "projects/forms-demo/src/test.ts",
+            "polyfills": "projects/forms-demo/src/polyfills.ts",
+            "tsConfig": "projects/forms-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/forms-demo/karma.conf.js",
             "styles": [
-              "projects/greeter-element/src/styles.css"
+              "projects/forms-demo/src/styles.css"
             ],
             "scripts": [],
             "assets": [
-              "projects/greeter-element/src/favicon.ico",
-              "projects/greeter-element/src/assets"
+              "projects/forms-demo/src/favicon.ico",
+              "projects/forms-demo/src/assets"
             ]
           }
         },
@@ -96,8 +92,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/greeter-element/tsconfig.app.json",
-              "projects/greeter-element/tsconfig.spec.json"
+              "projects/forms-demo/tsconfig.app.json",
+              "projects/forms-demo/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -107,5 +103,5 @@
       }
     }
   },
-  "defaultProject": "workspace"
+  "defaultProject": "forms-demo"
 }

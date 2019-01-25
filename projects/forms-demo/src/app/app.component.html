@@ -1,0 +1,11 @@
+<form [formGroup]="flugSuchenForm">
+  <input type="text" placeholder="Von" formControlName="von">
+  <br>
+  <input type="text" placeholder="Nach" formControlName="nach">
+</form>
+<br>
+<br>
+<div>
+  <pre>{{flights$ | async | json}}</pre>
+</div>
+

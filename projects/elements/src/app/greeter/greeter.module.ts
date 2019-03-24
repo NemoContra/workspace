@@ -4,15 +4,15 @@ import { DynamicGreeterElement } from './dynamic-greeter/dynamic-greeter.element
 import { GreetPipe } from './greet-pipe/greet.pipe';
 import { GreeterConfig } from './greeter.config';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PushModule } from 'push';
 import { GreeterService } from './services/greeter.service';
 import { StaticGreeterComponent } from './static-greeter/static-greeter.component';
+import { PushPipeModule } from '@ngrx-utils/store';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    PushModule
+    PushPipeModule
   ],
   declarations: [
     DynamicGreeterElement,

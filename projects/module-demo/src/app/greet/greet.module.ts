@@ -18,13 +18,4 @@ export class GreetModule {
       ]
     };
   }
-
-  public static forChild(config?: GreetConfig): ModuleWithProviders {
-    return {
-      ngModule: GreetModule,
-      providers: [
-        {provide: GreetConfig, useValue: config}
-      ]
-    };
-  }
 }

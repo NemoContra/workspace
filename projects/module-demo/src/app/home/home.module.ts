@@ -10,9 +10,7 @@ import { GreetModule } from '../greet/greet.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    GreetModule.forChild({
-      showDate: false
-    })
+    GreetModule
   ]
 })
 export class HomeModule { }

@@ -8,8 +8,6 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:element": "ng build --project greeter-element --prod --extraWebpackConfig webpack.extra.js --output-hashing none --single-bundle true && cp -R dist/greeter-element/main.js projects/greeter-element/test",
-    "serve:element": "cd projects/greeter-element/test && ws",
     "serve:backend": "ts-node projects/auth-server/index.ts"
   },
   "private": true,

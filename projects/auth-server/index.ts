@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-app.use(bodyParser());
+app.use(bodyParser.json());
 
 const jwt = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InBldGVyIiwiZXhwIjozNTIzNDQxMTg3fQ.MAOFjGA0mHVgfMesnoNrqSzFzMWfaEXj4MyswRY4CK4';
 

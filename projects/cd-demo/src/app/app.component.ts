@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { GreetingInfo } from './models';
 import { DataService } from './services/data.service';
 
@@ -7,11 +7,14 @@ import { DataService } from './services/data.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements DoCheck {
-  public name = 'Florian';
+export class AppComponent implements OnInit, DoCheck {
   public greeting = 'Hello';
+  public name = 'Florian';
 
   constructor(private dataService: DataService) { }
+
+  ngOnInit(): void {
+  }
 
   ngDoCheck(): void {
     console.log('Change detection for AppComponent');
@@ -23,7 +26,6 @@ export class AppComponent implements DoCheck {
 
   changeName(): void {
     this.name = 'Alex';
-    // this.greetingInfo.name = 'Alex';
     this.dataService.changeGreetingInfo({greeting: 'Hello', name: 'Alex'});
   }
 }

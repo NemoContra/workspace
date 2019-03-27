@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, DoCheck, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, OnInit } from '@angular/core';
 import { GreetingInfo } from '../models';
 import { DataService } from '../services/data.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-advanced-greeter',
@@ -10,14 +9,16 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdvancedGreeterComponent implements OnInit, DoCheck {
-  public greetingInfo$: Observable<GreetingInfo>;
-
   public greetingInfo: GreetingInfo;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,
+              private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.greetingInfo$ = this.dataService.greetingInfo$;
+    this.dataService.greetingInfo$.subscribe(greetingInfo => {
+      this.greetingInfo = greetingInfo;
+      this.changeDetectorRef.markForCheck();
+    });
   }
 
   ngDoCheck(): void {

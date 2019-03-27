@@ -1,9 +1,10 @@
-import { Component, DoCheck, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DoCheck, Input } from '@angular/core';
 
 @Component({
   selector: 'app-greeter',
   templateUrl: './greeter.component.html',
-  styleUrls: ['./greeter.component.css']
+  styleUrls: ['./greeter.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GreeterComponent implements DoCheck {
   @Input() greeting: string;

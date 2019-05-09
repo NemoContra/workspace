@@ -1,5 +1,7 @@
-<button type="button" (click)="onClick()">Get Flights!</button>
+<form [formGroup]="searchGroup">
+  <input placeholder="Search here" formControlName="searchCtrl">
+</form>
 
-<pre>
-  {{flights$ | async | json}}
-</pre>
+<p>Flüge</p>
+
+<pre>{{flights$ | async | json}}</pre>

@@ -3,5 +3,7 @@
   <p>To: {{flight.to}}</p>
   <p>Delayed: {{flight.delayed ? 'yes' : 'no'}}</p>
   <p>{{flight.date | date}}</p>
-  <button type="button" (click)="onSelectFlight(flight)">Select</button>
+  <button type="button" title="Bitte klicken!"
+          (clickWithWarning)="onSelectFlight(flight)"
+          [warning]="'Do you really want to select flight #' + flight.id">Select</button>
 </div>

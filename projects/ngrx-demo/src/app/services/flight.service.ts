@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Flight } from '../models/flight';
 import { LoadFlightsAction } from '../reducers/app.actions';
 import { State } from '../reducers';

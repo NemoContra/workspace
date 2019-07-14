@@ -1,5 +1,6 @@
 import { Flight } from '../models/flight';
-import { AppActions, AppActionTypes } from './app.actions';
+import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
+import { loadFlights, loadFlightsError, loadFlightsSuccess } from './app.actions';
 
 export interface AppState {
   flights: Flight[] | undefined;
@@ -13,15 +14,34 @@ export const initialState: AppState = {
   flightsLoading: false
 };
 
-export function appReducer(state = initialState, action: AppActions): AppState {
-  switch (action.type) {
-    case AppActionTypes.LoadFlights:
-      return {...state, flightsLoading: true};
-    case AppActionTypes.LoadFlightsSuccess:
-      return {...state, flightsLoading: false, flights: action.payload, flightsError: undefined};
-    case AppActionTypes.LoadFlightsError:
-      return {...state, flightsLoading: false, flightsError: action.payload};
-    default:
-      return state;
-  }
+export function appReducer(state: AppState, action: Action): AppState {
+  return reducer(state, action);
 }
+
+const reducer: ActionReducer<AppState> = createReducer(
+  initialState,
+  on(
+    loadFlights,
+      state => ({
+        ...state,
+        flightsLoading: true
+      })
+  ),
+  on(
+    loadFlightsSuccess,
+    (state, {flights}) => ({
+      ...state,
+      flightsLoading: false,
+      flights
+    })
+  ),
+  on(
+    loadFlightsError,
+    (state, {flightsError}) => ({
+      ...state,
+      flightsLoading: false,
+      flights: undefined,
+      flightsError
+    })
+  )
+);

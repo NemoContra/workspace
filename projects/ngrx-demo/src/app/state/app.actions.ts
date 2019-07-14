@@ -1,25 +1,17 @@
-import { Action } from '@ngrx/store';
+import { Action, createAction, props } from '@ngrx/store';
 import { Flight } from '../models/flight';
 
-export enum AppActionTypes {
-  LoadFlights = '[App] LoadFlights',
-  LoadFlightsSuccess = '[App] LoadFlightsSuccess',
-  LoadFlightsError = '[App] LoadFlightsError',
-}
+export const loadFlights = createAction(
+  '[App] LoadFlights',
+  props<{urgent: boolean}>()
+);
 
-export class LoadFlightsAction implements Action {
-  readonly type = AppActionTypes.LoadFlights;
-  constructor(public payload: boolean) { }
-}
+export const loadFlightsSuccess = createAction(
+  '[App] LoadFlightsSuccess',
+  props<{flights: Flight[]}>()
+);
 
-export class LoadFlightsSuccessAction implements Action {
-  readonly type = AppActionTypes.LoadFlightsSuccess;
-  constructor(public payload: Flight[]) {}
-}
-
-export class LoadFlightsErrorAction implements Action {
-  readonly type = AppActionTypes.LoadFlightsError;
-  constructor(public payload: string) {}
-}
-
-export type AppActions = LoadFlightsAction | LoadFlightsSuccessAction | LoadFlightsErrorAction;
+export const loadFlightsError = createAction(
+  '[App] LoadFlightsError',
+  props<{flightsError: string}>()
+);

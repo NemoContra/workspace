@@ -1,24 +1,18 @@
-import { Injectable } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Flight } from '../models/flight';
-import { LoadFlightsAction } from '../state/app.actions';
-import { State } from '../state';
-import { selectFlights } from '../state/app.selectors';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlightService {
-  constructor(private store: Store<State>) { }
+  constructor(private httpClient: HttpClient) { }
 
-  public loadFlights(urgent: boolean): void {
-    this.store.dispatch(new LoadFlightsAction(urgent));
-  }
-
-  public getFlights(): Observable<Flight[]> {
-    return this.store.pipe(
-      select(selectFlights)
+  public getFlights(urgent: boolean): Observable<Flight[]> {
+    return this.httpClient.get<Flight[]>(urgent ?
+      'http://www.angular.at/api/error?code=403' :
+      'http://www.angular.at/api/flight'
     );
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Flight } from './models/flight';
-import { FlightService } from './services/flight.service';
+import { AppFacade } from './state/app.facade';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +11,13 @@ import { FlightService } from './services/flight.service';
 export class AppComponent implements OnInit {
   flights$: Observable<Flight[]>;
 
-  constructor(private flightService: FlightService) { }
+  constructor(private appFacade: AppFacade) { }
 
   ngOnInit(): void {
-    this.flights$ = this.flightService.getFlights();
+    this.flights$ = this.appFacade.getFlights();
   }
 
   loadFlights(urgent: boolean): void {
-    this.flightService.loadFlights(urgent);
+    this.appFacade.loadFlights(urgent);
   }
 }

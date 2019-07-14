@@ -1,30 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
+import { FlightService } from '../services/flight.service';
+import { Action } from '@ngrx/store';
+import { loadFlights, loadFlightsError, loadFlightsSuccess } from './app.actions';
 import { catchError, exhaustMap, map } from 'rxjs/operators';
-import { AppActionTypes, LoadFlightsAction, LoadFlightsErrorAction, LoadFlightsSuccessAction } from './app.actions';
-import { FlightClient } from '../services/flight.client';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AppEffects {
-  @Effect() loadFlights$: Observable<any> =
+  loadFlights$: Observable<Action> = createEffect(() =>
     this.actions$.pipe(
-      ofType<LoadFlightsAction>(AppActionTypes.LoadFlights),
-      map(action => action.payload),
-      exhaustMap(urgent => {
-        return this.flightsClient.getFlights(urgent).pipe(
-          catchError(() => {
-            return of(undefined);
-          })
-        );
-      }),
-      map(flights => {
-        return flights ? new LoadFlightsSuccessAction(flights) :
-          new LoadFlightsErrorAction('It failed');
-      })
-    );
+    ofType(loadFlights),
+    map(({urgent}) => urgent),
+    exhaustMap(urgent => {
+      return this.flightsClient.getFlights(urgent).pipe(
+        catchError(() => {
+          return of(undefined);
+        })
+      );
+    }),
+    map(flights => {
+      return flights ? loadFlightsSuccess({flights}) :
+        loadFlightsError({flightsError: 'It failed'});
+    })
+  ));
 
   constructor(private actions$: Actions,
-              private flightsClient: FlightClient) {}
+              private flightsClient: FlightService) {}
 }

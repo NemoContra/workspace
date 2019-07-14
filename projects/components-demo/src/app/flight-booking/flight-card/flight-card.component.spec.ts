@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FlightCardComponent } from './flight-card.component';
-import { Component } from '@angular/core';
+import { Component, Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { Flight } from '../../models/flight';
+import { ClickWithWarningDirective } from '../click-with-warning/click-with-warning.directive';
 
 const testFlights: Flight[] = [{
   id: 1,
@@ -17,6 +18,19 @@ const testFlights: Flight[] = [{
   date: '2018-13-08T10:00:00.000Z',
   delayed: false
 }];
+
+@Directive({
+  selector: 'button[clickWithWarning]'
+})
+export class ClickWithWarningMockDirective {
+  @Input() warning = 'Do you really want to do this?';
+  @Output() clickWithWarning = new EventEmitter();
+
+  @HostListener('click')
+  onClick(): void {
+    this.clickWithWarning.emit();
+  }
+}
 
 @Component({
   template: '<app-flight-card [flights]="flights" [(selectedFlight)]="selectedFlight"></app-flight-card>'
@@ -34,7 +48,8 @@ describe('FlightCardComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         TestHostComponent,
-        FlightCardComponent
+        FlightCardComponent,
+        ClickWithWarningMockDirective
       ]
     }).compileComponents();
 

@@ -1,4 +1,5 @@
-import { browser, by, element, ElementArrayFinder, ElementFinder, promise } from 'protractor';
+import { browser, by, element, ElementArrayFinder, ElementFinder, promise, protractor } from 'protractor';
+import { Alert } from 'selenium-webdriver';
 
 export class AppPage {
   public navigateTo(): promise.Promise<any> {
@@ -25,6 +26,11 @@ export class AppPage {
     return this.getFlightByIndex(index).getAttribute('class').then(classList => {
       return classList.includes('selected');
     });
+  }
+
+  public async getAlert(): Promise<Alert> {
+    await browser.wait(protractor.ExpectedConditions.alertIsPresent(), 500);
+    return browser.switchTo().alert();
   }
 
   private getFlightByIndex(index: number): ElementFinder {

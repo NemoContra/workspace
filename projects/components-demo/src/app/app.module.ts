@@ -11,10 +11,6 @@ import { Config } from './models/config';
 import { ClickWithWarningDirective } from './flight-booking/click-with-warning/click-with-warning.directive';
 import { MyErrorHandlerService } from './my-error-handler.service';
 
-export const APP_CONFIG: Config = {
-  searchDebounceTime: 300
-};
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +25,6 @@ export const APP_CONFIG: Config = {
     ReactiveFormsModule
   ],
   providers: [
-    {provide: Config, useValue: APP_CONFIG},
     {provide: ErrorHandler, useExisting: MyErrorHandlerService}
   ],
   bootstrap: [AppComponent]

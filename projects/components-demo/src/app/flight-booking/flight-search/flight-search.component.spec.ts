@@ -5,7 +5,7 @@ import { FlightService } from '../../services/flight.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Flight } from '../../models/flight';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 import { of } from 'rxjs';
 
 const testFlights: Flight[] = [{
@@ -69,7 +69,7 @@ describe('FlightSearchComponent', () => {
     expect(fixture.nativeElement.querySelector('app-flight-card')).toBeTruthy();
   });
 
-  it('should search a flight from Hamburg to Graz and find ond element', () => {
+  it('should search a flight from Hamburg to Graz and find ond element', fakeAsync(() => {
     const fromInput: HTMLInputElement = fixture.nativeElement.querySelectorAll('input')[0];
     const toInput: HTMLInputElement = fixture.nativeElement.querySelectorAll('input')[1];
 
@@ -81,13 +81,15 @@ describe('FlightSearchComponent', () => {
     toInput.value = 'Hamburg';
     toInput.dispatchEvent(new Event('input'));
 
+    tick(300);
+
     fixture.detectChanges();
 
     const flightService: FlightService = TestBed.get(FlightService);
     expect(flightService.findFlights).toHaveBeenCalledWith('Graz', 'Hamburg');
-  });
+  }));
 
-  it('should search a flight from Wien to Graz and find no elements', () => {
+  it('should search a flight from Wien to Graz and find no elements', fakeAsync(() => {
     const fromInput: HTMLInputElement = fixture.nativeElement.querySelectorAll('input')[0];
     const toInput: HTMLInputElement = fixture.nativeElement.querySelectorAll('input')[1];
 
@@ -99,9 +101,11 @@ describe('FlightSearchComponent', () => {
     toInput.value = 'Graz';
     toInput.dispatchEvent(new Event('input'));
 
+    tick(300);
+
     fixture.detectChanges();
 
     const flightService: FlightService = TestBed.get(FlightService);
     expect(flightService.findFlights).toHaveBeenCalledWith('Wien', 'Graz');
-  });
+  }));
 });

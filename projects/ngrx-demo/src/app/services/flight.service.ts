@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Flight } from '../models/flight';
-import { LoadFlightsAction } from '../reducers/app.actions';
-import { State } from '../reducers';
-import { selectFlights } from '../reducers/app.selectors';
+import { LoadFlightsAction } from '../state/app.actions';
+import { State } from '../state';
+import { selectFlights } from '../state/app.selectors';
 
 @Injectable({
   providedIn: 'root'

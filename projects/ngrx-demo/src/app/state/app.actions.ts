@@ -1,4 +1,4 @@
-import { Action, createAction, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Flight } from '../models/flight';
 
 export const loadFlights = createAction(
